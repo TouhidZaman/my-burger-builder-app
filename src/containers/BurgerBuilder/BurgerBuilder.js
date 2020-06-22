@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import JsxWrapper from '../../hoc/JsxWrapper';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
     salad: 0.2,
@@ -20,7 +22,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalCost: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
     }
 
     purchasableHandler = (ingredients) => {
@@ -31,6 +34,10 @@ class BurgerBuilder extends Component {
 
         this.setState({purchasable: sum > 0})
     }
+
+    purchaseHandler = () => this.setState({purchasing: true});
+    purchaseCancleHandler = () => this.setState({purchasing: false});
+    continuePurchaseHandler = () => alert("Sorry ! this section is under maintenance")
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
@@ -83,6 +90,14 @@ class BurgerBuilder extends Component {
 
         return (
             <JsxWrapper>
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancleHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        price={this.state.totalCost}
+                        canclePurchase={this.purchaseCancleHandler}
+                        continuePurchase={this.continuePurchaseHandler}
+                    />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     addIngredient={this.addIngredientHandler} 
@@ -90,6 +105,7 @@ class BurgerBuilder extends Component {
                     disabled={disabledInfo} 
                     price={this.state.totalCost}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchaseHandler}
                 />
             </JsxWrapper>
         )
