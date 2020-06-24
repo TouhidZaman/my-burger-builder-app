@@ -1,10 +1,11 @@
 import React from 'react';
 import JsxWrapper from '../../hoc/JsxWrapper';
 import classes from './Layout.module.css';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 const layout = (props) => (
     <JsxWrapper>
-        <div>Tollbar, logo, side drawer</div>
+        <Toolbar />
         <main className={classes.Content}>
             {props.children}
         </main>
