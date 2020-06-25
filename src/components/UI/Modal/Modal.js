@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from  './Modal.module.css';
-import JsxWrapper from '../../../hoc/JsxWrapper';
+import JsxWrapper from '../../../hoc/JsxWrapper/JsxWrapper';
 import Backdrop from '../Backdrop/Backdrop';
 
 const modal = (props) => (

@@ -15,12 +15,17 @@
     box-shadow: 0 2px 3px rgb(165, 57, 93);
 }
 
-.Toolbar div {
-    display: flex;
+.Toolbar nav {
+    /* margin-left: auto; */
     height: 100%;
-    align-items: center;
 }
 
-.Toolbar nav {
-    height: 100%;
+/* .Logo {
+    height: 80%;
+} */
+
+@media (max-width: 499px) {
+    .Toolbar nav {
+        display: none;
+    }
 }
