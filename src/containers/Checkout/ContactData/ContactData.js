@@ -45,7 +45,7 @@ class ContactData extends Component {
                 console.log(response)
                 this.setState({isLoading: false})
                 console.log('Your Order Is Confirmed')
-                this.props.history.push('/');
+                this.props.history.push('/orders');
             })
             .catch(error => {
                 console.log(error)
