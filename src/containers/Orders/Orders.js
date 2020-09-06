@@ -2,6 +2,7 @@ import React , { Component } from 'react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Orders extends Component {
 
@@ -32,28 +33,30 @@ class Orders extends Component {
     }
 
     render () {
+        let orders = <Spinner/>
+        if(!this.state.isLoading) {
+            orders = (
+                <div>
+                    {this.state.orders ? this.state.orders.map(order => {
+                        let tmpIngredients = []
+                        for (let key in order.ingredients) {
+                            tmpIngredients.push({name: key, value: order.ingredients[key]})
+                        }
+                        // console.log(tmpIngredients)
+                        return (
+                            <Order 
+                                key={order.id} 
+                                tmpIngredients={tmpIngredients}
+                                price={order.price}
+                                deliveryMethod={order.deliveryMethod}
+                            />
+                        )
+                    }) : <h1>No Order Found</h1>}
+                </div>
+            )
+        }
        
-        return (
-            <div>
-
-                {this.state.orders ? this.state.orders.map(order => {
-                    let tmpIngredients = []
-                    for (let key in order.ingredients) {
-                        tmpIngredients.push({name: key, value: order.ingredients[key]})
-                    }
-                    // console.log(tmpIngredients)
-                    return (
-                        <Order 
-                            key={order.id} 
-                            tmpIngredients={tmpIngredients}
-                            price={order.price}
-                            deliveryMethod={order.deliveryMethod}
-                        />
-                    )
-                }) : <h1>No Order Found</h1>}
-
-            </div>
-        )
+        return orders;       
     }
 }
 
